@@ -39,8 +39,8 @@ export class App extends React.Component<State> {
     }, 3300);
   }
 
-  componentDidUpdate(prevState: Readonly<State>): void {
-    if (prevState.clockName !== this.state.clockName) {
+  componentDidUpdate(prevProps: Readonly<{}>, prevState: Readonly<State>): void {
+    if (prevState.clockName !== this.state.clockName && this.state.hasClock) {
       // eslint-disable-next-line no-console
       console.warn(
         `Renamed from ${prevState.clockName} to ${this.state.clockName}`,

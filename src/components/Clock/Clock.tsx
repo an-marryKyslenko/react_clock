@@ -1,4 +1,4 @@
-import { Component, ReactNode } from 'react';
+import { PureComponent, ReactNode } from 'react';
 
 type State = {
   today: Date;
@@ -8,7 +8,7 @@ type Props = {
   name: string;
   nameTimerId: number;
 };
-export class Clock extends Component<Props, State> {
+export class Clock extends PureComponent<Props, State> {
   state: Readonly<State> = {
     today: new Date(),
   };
@@ -26,12 +26,16 @@ export class Clock extends Component<Props, State> {
     window.clearInterval(this.props.nameTimerId);
   }
 
+  componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<State>): void {
+    if (prevState.today !== this.state.today) {
+    // eslint-disable-next-line no-console
+    console.log(this.state.today.toUTCString().slice(-12, -4));
+    }
+  }
+
   render(): ReactNode {
     const { today } = this.state;
     const { name } = this.props;
-
-    // eslint-disable-next-line no-console
-    console.log(today.toUTCString().slice(-12, -4));
 
     return (
       <div className="Clock">
